@@ -34,10 +34,10 @@ def draw():
 
     # provide the 1st date in YYYY,MM,DD format
     todays_date = date.today()
-    print(date_of_born.isocalendar()[1])
 
     weeks_since_born = int((todays_date - date_of_born).days / 7)
 
+    print(date_of_born.isocalendar()[1])
     for year in range(age_of_death_estimation):
         drawCalendar.text(
             xy=(horizontal_move_offset - 55, vertical_move + 12),
@@ -63,6 +63,11 @@ def draw():
                 fill_colour = "white"
             else:
                 outline_beginning = "black"
+            
+            if not (week+1) % 10:
+                width = 2
+            else:
+                width = 1
 
             drawCalendar.rectangle(
                 [
@@ -70,7 +75,7 @@ def draw():
                     (horizontal_size + horizontal_move, vertical_size + vertical_move),
                 ],
                 fill=fill_colour,
-                outline=outline_beginning,
+                outline=outline_beginning, width = width
             )
             number_of_drawn_blocks += 1
             horizontal_move += single_box_size
