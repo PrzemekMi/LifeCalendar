@@ -17,7 +17,7 @@ def draw():
 
     single_box_size = 50
     number_of_weeks_in_year = 52
-    year_of_born = date(1996, 8, 26)
+    date_of_born = date(1996, 8, 26)
     age_of_death_estimation = 90
 
     horizontal_size = single_box_size
@@ -33,25 +33,23 @@ def draw():
     number_of_drawn_blocks = 0
 
     # provide the 1st date in YYYY,MM,DD format
-    date_of_born = date(1996, 8, 26)
-
-    # provide the 1st date in YYYY,MM,DD format
     todays_date = date.today()
+    print(date_of_born.isocalendar()[1])
 
     weeks_since_born = int((todays_date - date_of_born).days / 7)
 
     for year in range(age_of_death_estimation):
         drawCalendar.text(
             xy=(horizontal_move_offset - 55, vertical_move + 12),
-            text=str(year_of_born.year),
+            text=str(date_of_born.year),
             fill="black",
             font=font,
         )  # -55 and 12 are font depandent constants, could be calculeted by getting half of block size and width
 
-        year_of_born = year_of_born + relativedelta(years=1)
+        date_of_born = date_of_born + relativedelta(years=1)
         for week in range(number_of_weeks_in_year):
             if (
-                number_of_drawn_blocks - year_of_born.isocalendar()[1]
+                number_of_drawn_blocks - date_of_born.isocalendar()[1] + 5 #ToDo: fix for 52,14 weeks in a year
                 < weeks_since_born
             ):
                 # grey-out alread lived weeks
@@ -60,7 +58,7 @@ def draw():
                 fill_colour = "white"
 
             # do not draw boxes in the beginning of the year (make them invisible by drawing them white)
-            if number_of_drawn_blocks < year_of_born.isocalendar()[1]:
+            if number_of_drawn_blocks < date_of_born.isocalendar()[1]:
                 outline_beginning = "white"
                 fill_colour = "white"
             else:
